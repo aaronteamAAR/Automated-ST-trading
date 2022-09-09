@@ -1,5 +1,5 @@
 import config
-import robin_stocks as rh
+import robin_stocks.robinhood as rh
 
 import datetime as dt
 import time
@@ -33,8 +33,15 @@ def open_market():
     if time_now > market_open and time_now < market_close:
         market = True
     else:
-        print("Market is closed")
+        pass
 
     return (market)
 
-open_market()
+if __name__=="__main__":
+    login(days=1)
+
+    stocks = get_stocks()
+    print("stocks:", stocks)
+
+
+
