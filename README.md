@@ -1,3 +1,3 @@
 # Automated-ST-trading
-
-Automated stock trading aimed to br used with robinhood
+CHECK master branch for code.
+Automated stock trading aimed to be used with robinhood
