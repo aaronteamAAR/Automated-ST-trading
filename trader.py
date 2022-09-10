@@ -1,4 +1,5 @@
 import config
+import stragety
 import robin_stocks.robinhood as rh
 
 import datetime as dt
@@ -11,7 +12,7 @@ def login(days):
                             expiresIn = time_logged_in,
                             scope = 'internal',
                             by_sms = True,
-                            store_session = True)
+                            store_session = True) 
 
 def logout():
     rh.authentication.logout()
@@ -19,12 +20,15 @@ def logout():
 
 def get_stocks():
     stocks = list()
-    stocks.append('CNET')
+    stocks.append(' AAPL')
     stocks.append('NKE')
+    stocks.append('DIS')
+    stocks.append('BA')
+
     return(stocks)
 
 def open_market():
-    market = False
+    market = True
     time_now = dt.datetime.now().time()
 
     market_open = dt.time(9, 30, 0) #market open time
@@ -43,5 +47,16 @@ if __name__=="__main__":
     stocks = get_stocks()
     print("stocks:", stocks)
 
+    ts = stragety.trader(stocks)
+while open_market():
+    prices = rh.stocks.get_latest_price(stocks)
+    
+    for i, stock in enumerate(stocks):
+        price = float(prices[i])
+    print('{} = ${}'.format(stock, price))
+    
+    data = ts.get_historical_price(stock, span= 'week')
+    time.sleep(30)
+logout()
 
 
