@@ -48,6 +48,8 @@ if __name__=="__main__":
     print("stocks:", stocks)
 
     ts = stragety.trader(stocks)
+    
+    
 while open_market():
     prices = rh.stocks.get_latest_price(stocks)
     
@@ -55,7 +57,7 @@ while open_market():
         price = float(prices[i])
     print('{} = ${}'.format(stock, price))
     
-    data = ts.get_historical_price(stock, span= 'week')
+    data = ts.get_historical_price(stock, span= 'day')
     time.sleep(30)
 logout()
 

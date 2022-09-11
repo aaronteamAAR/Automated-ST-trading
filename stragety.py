@@ -31,4 +31,9 @@ class trader():
      data = helper.request_get(url, 'results', payload)
      
      
+     historical_data = []
+     for item in data:
+         for subitem in item['historicals']:
+             historical_data.append(subitem)
+     
      print('data: \n', data)
