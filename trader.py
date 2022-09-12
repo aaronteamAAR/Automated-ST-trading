@@ -57,7 +57,9 @@ while open_market():
         price = float(prices[i])
         print('{} = ${}'.format(stock, price))
             
-    data = ts.get_historical_prices(stock, span= 'day')
+        df_prices = ts.get_historical_prices(stock, span="day")    
+        sma = ts.get_sma(stock, df_prices, window=12 )
+        print('sma', sma)
     time.sleep(30)
 logout()
 
