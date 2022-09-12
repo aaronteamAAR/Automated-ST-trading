@@ -55,9 +55,9 @@ while open_market():
     
     for i, stock in enumerate(stocks):
         price = float(prices[i])
-    print('{} = ${}'.format(stock, price))
-    
-    data = ts.get_historical_price(stock, span= 'day')
+        print('{} = ${}'.format(stock, price))
+            
+    data = ts.get_historical_prices(stock, span= 'day')
     time.sleep(30)
 logout()
 
