@@ -66,9 +66,10 @@ while open_market():
         df_prices = ts.get_historical_prices(stock, span = 'day')    
         sma = ts.get_sma(stock, df_prices, window=12)
         
-        p_sma = ts.get_price_sma(price, sma)
+        #Previous SMA
+      #  p_sma = ts.get_price_sma(price, sma)
         trade = ts.trade_option(stock, price)
-        print("p_sma: ", p_sma)
+      #  print("p_sma: ", p_sma)
         print("Trade: ", trade)
     time.sleep(30)
 logout()
