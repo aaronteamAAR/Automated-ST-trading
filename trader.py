@@ -46,11 +46,37 @@ def open_market():
 
     return (market)
 
+
+
+
+def get_cash():
+    cashInAcct = rh.account.build_user_profile()
+    print("Cash in Account: ", cashInAcct)
+    
+    
+def get_holding_and_bought_price(stocks):
+    holdings = {stocks[i]: 0 for i in range(0, len(stocks))}
+    bought_price = {stocks[i]: 0 for i in range(0, len(stocks))}
+    rh_holdings = rh.account.build_holdings()
+    
+    
+    for stock in stocks:
+        try:
+            holdings[stocks] = int(float((rh_holdings[stocks]['quantity'])))
+            bought_price[stock] = float((rh_holdings[stock]['average_buy_price']))
+        except:
+            holdings[stock] = 0
+            bought_price[stock] = 0
+    return(holdings, bought_price)
+    
+    
+    
 if __name__=="__main__":
     login(days=1)
 
     stocks = get_stocks()
     print("stocks:", stocks)
+    get_cash()
 
     ts = stragety.trader(stocks)
     
