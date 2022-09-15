@@ -24,6 +24,11 @@ def get_stocks():
     stocks.append('NKE')
     stocks.append('DIS')
     stocks.append('BA')
+    stocks.append('FBP')
+    stocks.append('GME')
+    stocks.append('HD')
+    stocks.append('SBUX')
+    stocks.append('GE')
 
     return(stocks)
 
@@ -57,9 +62,14 @@ while open_market():
         price = float(prices[i])
         print('{} = ${}'.format(stock, price))
             
-        df_prices = ts.get_historical_prices(stock, span="day")    
-        sma = ts.get_sma(stock, df_prices, window=12 )
-        print('sma', sma)
+        # df_prices = ts.get_historical_prices(stock, span="day")
+        df_prices = ts.get_historical_prices(stock, span = 'day')    
+        sma = ts.get_sma(stock, df_prices, window=12)
+        
+        p_sma = ts.get_price_sma(price, sma)
+        trade = ts.trade_option(stock, price)
+        print("p_sma: ", p_sma)
+        print("Trade: ", trade)
     time.sleep(30)
 logout()
 
