@@ -9,6 +9,20 @@ import datetime as dt
 import time
 import pandas as pd
 
+
+''' 
+ pip install pandas
+ pip install datetime
+ pip install matplotlib.pyplot
+ pip install robin_stocks 
+ 
+ Write the above lines of code one at a time in your integrated terminal on replit
+ 
+ '''
+
+
+# This session handles the login 
+
 def login(days):
     time_logged_in = 60*60*24*days
     rh.authentication.login(username=config.USERNAME,
@@ -18,9 +32,14 @@ def login(days):
                             by_sms=True,
                             store_session=True)
 
+
+# This session handles the logout 
 def logout():
     rh.authentication.logout()
 
+
+# This block of code get the stocks you want to trade
+# To add one add the ticker symbol in the '' located in the brackets 
 def get_stocks():
     # add your stocks here
     stocks = list()
@@ -34,8 +53,8 @@ def open_market():
     market = False
     time_now = dt.datetime.now().time()
 
-    market_open = dt.time(9,30,0) # 9:30AM
-    market_close = dt.time(15,59,0) # 3:59PM
+    market_open = dt.time(9,30,0) # 9:30AM Open time of the market
+    market_close = dt.time(15,59,0) # 3:59PM Closing time of the market
 
     if time_now > market_open and time_now < market_close:
         market = True
@@ -45,6 +64,8 @@ def open_market():
 
     return(market)
 
+
+# This session check to see the amount of money in your account for trading 
 def get_cash():
     rh_cash = rh.account.build_user_profile()
 

@@ -1,6 +1,9 @@
-import matplotlib.pyplot as plt
+
 import pandas as pd
 import datetime as dt
+import matplotlib.pyplot as plt
+
+
 
 def normalize(df):
     # df.shape = (rows, columns)
