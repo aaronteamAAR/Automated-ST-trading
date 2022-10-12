@@ -125,18 +125,16 @@ def build_dataframes(df_trades, trade_dict, df_prices, price_dict):
 def get_tag():
     market_tag = rh.markets.get_top_100(info=None)
     for x in range(len(market_tag)):
-      newlist = market_tag[x]["symbol"]
-    return(newlist)
-
+      syb = market_tag[x]["symbol"]
+      Caps = rh.stocks.get_fundamentals(syb, info=None)
+      print(Caps[x]["symbol"])
+    
 if __name__ == "__main__":
     login(days=1)
     stocks = get_stocks()
     print('stocks:', stocks)
     tops = get_tag()
-    Caps = list()
-    Caps.append(tops)
-    print(Caps)
-   
+    print(tops)
 
     ts = stragety.trader(stocks)
 
