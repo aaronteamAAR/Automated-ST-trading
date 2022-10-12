@@ -8,6 +8,7 @@ import robin_stocks.robinhood as rh
 import datetime as dt
 import time
 import pandas as pd
+from tabulate import tabulate
 
 
 ''' 
@@ -127,7 +128,13 @@ def get_tag():
     for x in range(len(market_tag)):
       syb = market_tag[x]["symbol"]
       Caps = rh.stocks.get_fundamentals(syb, info=None)
-      print(Caps[x]["symbol"])
+      toInt = float(Caps[0]["market_cap"])
+      toFloat = int(toInt)
+      d = [
+          [toFloat, Caps[0]["symbol"], Caps[0]["low"]],
+      ]
+      
+      print(tabulate(d, headers=["Market cap", "Symbol", "Low"], tablefmt='pipe'))
     
 if __name__ == "__main__":
     login(days=1)
