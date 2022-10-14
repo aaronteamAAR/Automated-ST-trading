@@ -66,23 +66,6 @@ def open_market():
     return(market)
 
 
-
-def open_watch():
-    market = False
-    time_now = dt.datetime.now().time()
-
-    market_open = dt.time(10,00,0) # 9:30AM Open time of the market
-    market_close = dt.time(11,00,0) # 3:59PM Closing time of the market
-
-    if time_now > market_open and time_now < market_close:
-        market = True
-    else:
-        # print('### market is closed')
-        pass
-
-    return(market)
-
-
 # This session check to see the amount of money in your account for trading 
 def get_cash():
     rh_cash = rh.account.build_user_profile()
@@ -141,22 +124,13 @@ def build_dataframes(df_trades, trade_dict, df_prices, price_dict):
 
 
 def get_tag():
-    market_tag = rh.markets.get_top_100(info=None)
-    for x in range(len(market_tag)):
-      syb = market_tag[x]["symbol"]
-      Caps = rh.stocks.get_fundamentals(syb, info=None)
-      toInt = float(Caps[0]["market_cap"]) #get markcap of top100 symbol with their tickers
-      toFloat = int(toInt)
-      d = [
-          [toFloat, Caps[0]["symbol"], Caps[0]["low"]],
-      ]
-      
-      print(tabulate(d, headers=["Market cap", "Symbol", "Low"], tablefmt='pipe'))
+   listStock = print('stocks:', stocks)
+   return(listStock)
     
 if __name__ == "__main__":
     login(days=1)
     stocks = get_stocks()
-    print('stocks:', stocks)
+    listStock = print('stocks:', stocks)
     tops = get_tag()
     print(tops)
 
