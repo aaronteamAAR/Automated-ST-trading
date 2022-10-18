@@ -28,6 +28,10 @@ def watchlist():
         else:
             print('Proceed to buy with robinhood')
             
+    break
+            
+watchlist()
+            
     
                     
 
