@@ -1,15 +1,43 @@
-from io import StringIO
+
+import robin_stocks.robinhood as rh
+import config
 import sys
 
+''' 
+ pip install pandas
+ pip install datetime
+ pip install matplotlib.pyplot
+ pip install robin_stocks 
+ 
+ Write the above lines of code one at a time in your integrated terminal on replit
+ 
+ '''
 
-buffer = StringIO()
-sys.stdout = buffer
 
-print('This will be stored in the print_output variable')
-print_output = buffer.getvalue()
+# This session handles the login 
 
-# 👇️ restore stdout to default for print()
-sys.stdout = sys.__stdout__
+def login(days):
+    time_logged_in = 60*60*24*days
+    rh.authentication.login(username=config.USERNAME,
+                            password=config.PASSWORD,
+                            expiresIn=time_logged_in,
+                            scope='internal',
+                            by_sms=True,
+                            store_session=True)
 
-# 👇️ -> This will be stored in the print_output variable
-print('->', print_output)
+
+# This session handles the logout 
+def logout():
+    rh.authentication.logout()
+
+
+def BUY():
+    buy = rh.order_buy_market()
+    
+    
+    
+def SELL():
+    buy = rh.order_sell_market()
+    
+
+
