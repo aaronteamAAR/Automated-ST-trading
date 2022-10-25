@@ -31,13 +31,15 @@ def logout():
     rh.authentication.logout()
 
 
-def BUY():
-    buy = rh.order_buy_market()
+def BUY(ticker, amount):
+    buy = rh.order_buy_market(ticker, amount)
     
     
     
-def SELL():
+def SELL(ticker, amount):
     buy = rh.order_sell_market()
     
-
+   
+if __name__ == "__main__":
+    login(days=1)
 
