@@ -2,6 +2,7 @@ import yfinance as yf
 import pandas as pd
 import schedule,time, pytz
 import datetime as dt
+import robin_stocks as rh
 from datetime import timedelta
 
     
@@ -15,12 +16,9 @@ ticks = ('TSLA', 'AAPL', 'AMZN', 'F', 'AMC', 'SNDL', 'MSFT', 'DIS', 'NIO',
 def open_market():
     market = False
     timezone = pytz.timezone('US/Eastern')
-    print(type(timezone))
     aware = dt.datetime.now(timezone).time()
     print(aware) 
-    global pastTime
-    pastTime = dt.datetime.now(timezone) - dt.timedelta(minutes=5)  # time of 5minutes ago
-    print(pastTime)
+
     market_open = dt.time(10,00,0) # 9:30AM Open time of the market
     market_close = dt.time(12,00,0) # 3:59PM Closing time of the market
 
@@ -38,25 +36,33 @@ def watchlist():
     aware = dt.datetime.now(timezone).time()
     print(aware) 
     global pastTime
-    pastTime = dt.datetime.now(timezone) - dt.timedelta(minutes=5)  # time of 5minutes ago
+    pastTime = dt.datetime.now(timezone) - dt.timedelta(hours=6) # time of 5minutes ago
+    pastTime2 = dt.datetime.now(timezone) - dt.timedelta(hours=6) - dt.timedelta(minutes=5)
+    print(pastTime)
+    print(pastTime2)
     for x in ticks:
         toStr = str(x)
         syb = yf.Ticker(toStr)
-        data = pd.DataFrame(syb.history(interval="1m",period='1d',))
-        data2 = pd.DataFrame(syb.history(interval="1m",period='1d',start=pastTime))
-        if data['Open'].sum() < data2['Open'].sum():
-                     print(data['Open'].sum())
-                     print(data2['Open'].sum())
-                     print('Watch stock')
-        else:
-            print(toStr, 'Proceed to sell with robinhood')
-   
-   
-watchlist()         
-        
-# schedule.every(5).minutes.do(watchlist)
+        data = pd.DataFrame(syb.history(interval="1m",period='1d'))
+        data2 = pd.DataFrame(syb.history(interval="1m",period='1d', end=pastTime, start=pastTime2))
+        data1 = data['Open'].reset_index(drop=True)
+        dataPrev = data2['Open'].reset_index(drop=True)
+        prev1 = data1.tail().iloc[2]
+        prev2 = dataPrev.tail().iloc[2]
+        print(toStr, prev1, " : ", prev2 )
+        if prev2 > prev1:
+                      print(toStr, prev1, " : ", prev2 )
+                      print(toStr, 'Watch stop')
 
+        else:
+            print(toStr, 'Proceed to buy with robinhood')
+            
+            
+    print(toStr)
+  
+watchlist()                    
 # while open_market():
+#     schedule.every(5).minutes.do(watchlist)
 #     schedule.run_pending()
 #     time.sleep(1)
 #Next buy with robinhood but first put the stocks in tick in your robinhood account you need to own them               

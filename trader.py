@@ -49,7 +49,7 @@ def get_stocks():
       syb = market_tag[x]["symbol"]
       stocks.append(syb)
     return(stocks)
-
+print(rh.get_latest_price(get_stocks()))
 def open_market():
     market = False
     time_now = dt.datetime.now().time()
