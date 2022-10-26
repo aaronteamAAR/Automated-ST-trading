@@ -71,16 +71,16 @@ def watchlist():
  ######################################################################
  
  
-       
+#  Check price overtime       
 def checkPriceAction():
         if prev2 > prev1:
             print(toStr, prev1, " : ", prev2 )
             print(toStr, 'Watch stop', aware)
-        time.sleep(60*5)
+        time.sleep(300)
         if prev2 > prev1:
             print(toStr, prev1, " : ", prev2 )
             print(toStr, 'Watch stop', aware)
-        time.sleep(60*5)
+        time.sleep(300)
         if prev2 > prev1:
             print(toStr, prev1, " : ", prev2 )
             print(toStr, 'Watch stop', aware)
