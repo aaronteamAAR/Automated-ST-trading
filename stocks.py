@@ -69,21 +69,29 @@ def watchlist():
         if prev2 > prev1:
                       print(toStr, prev1, " : ", prev2 )
                       print(toStr, 'Watch stop')
+                      time.sleep(60*5)
+        if prev2 > prev1:
+            print(toStr, prev1, " : ", prev2 )
+            print(toStr, 'Watch stop')
+            time.sleep(60*5)
+        if prev2 > prev1:
+            print(toStr, prev1, " : ", prev2 )
+            print(toStr, 'Watch stop')
+            time.sleep(60*5)
         else:
-            print(toStr, 'Proceed to buy with robinhood')
+            print(toStr, 'Proceed to buy with robinhood')   
             main.BUY(toStr, 1)
                  
     print(toStr)      
 if __name__ == "__main__":
-    login(days=1)  
-    
+    login(days=1)    
     
               
-    while open_market():
-     schedule.every(5).minutes.do(watchlist())
-     schedule.run_pending()
-     time.sleep(1)
+while open_market():
+      schedule.every(5).minutes.do(watchlist())
+      schedule.run_pending()
+      time.sleep(1)
      
-    logout()
+    # logout()
 #Next buy with robinhood but first put the stocks in tick in your robinhood account you need to own them               
 
