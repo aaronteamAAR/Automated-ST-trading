@@ -64,9 +64,8 @@ def watchlist():
         data2 = pd.DataFrame(syb.history(interval="1m",period='1d', end=pastTime, start=pastTime2))
         data1 = data['Open'].reset_index(drop=True)
         dataPrev = data2['Open'].reset_index(drop=True)
-        prev1 = data1.tail().iloc[0:297, 2]
-        prev2 = dataPrev.tail().iloc[0:297, 2]
-        print(prev2, prev1)
+        prev1 = data1.tail().iloc[2]
+        prev2 = dataPrev.tail().iloc[2]
         if prev2 > prev1:
                       print(toStr, prev1, " : ", prev2 )
                       print(toStr, 'Watch stop')

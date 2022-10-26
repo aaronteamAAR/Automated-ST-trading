@@ -42,4 +42,5 @@ def SELL(ticker, amount):
    
 if __name__ == "__main__":
     login(days=1)
+    rh.get_top_100()
 
