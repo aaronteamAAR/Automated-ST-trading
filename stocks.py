@@ -47,55 +47,54 @@ def open_market():
 
     return(market)
 
-def watchlist():
-    global prev1, prev2, toStr, aware, pastTime
+def watchTime():
+    global prev1, prev2, toStr, aware, pastTime, pastTime2
     timezone = pytz.timezone('US/Eastern')
     print(type(timezone))
     aware = dt.datetime.now(timezone).time()
     print(aware)
     pastTime = dt.datetime.now(timezone)# time of 5minutes ago
-    pastTime2 = dt.datetime.now(timezone) - dt.timedelta(minutes=5)
+    pastTime2 = pastTime - dt.timedelta(minutes=5)
     print(pastTime)
     print(pastTime2)
-    for x in ticks:
-        toStr = str(x)
-        syb = yf.Ticker(toStr)
-        data = pd.DataFrame(syb.history(interval="1m",period='1d'))
-        data2 = pd.DataFrame(syb.history(interval="1m",period='1d', end=pastTime, start=pastTime2))
-        data1 = data['Open'].reset_index(drop=True)
-        dataPrev = data2['Open'].reset_index(drop=True)
-        prev1 = data1.tail().iloc[2]
-        prev2 = dataPrev.tail().iloc[2]
         
  
  ######################################################################
  
- 
 #  Check price overtime       
 def checkPriceAction():
-        if prev2 > prev1:
-            print(toStr, prev1, " : ", prev2 )
-            print(toStr, 'Watch stop', aware)
-        time.sleep(300)
-        if prev2 > prev1:
-            print(toStr, prev1, " : ", prev2 )
-            print(toStr, 'Watch stop', aware)
-        time.sleep(300)
-        if prev2 > prev1:
-            print(toStr, prev1, " : ", prev2 )
-            print(toStr, 'Watch stop', aware)
-
-        else:
-            print(toStr, 'Proceed to buy with robinhood', aware)
-            main.BUY(toStr, 1)
+        for x in ticks:
+            toStr = str(x)
+            syb = yf.Ticker(toStr)
+            data = pd.DataFrame(syb.history(interval="1m",period='1d'))
+            data2 = pd.DataFrame(syb.history(interval="1m",period='1d', end=pastTime, start=pastTime2))
+            data1 = data['Open'].reset_index(drop=True)
+            dataPrev = data2['Open'].reset_index(drop=True)
+            prev1 = data1.tail().iloc[2]
+            prev2 = dataPrev.tail().iloc[2]
+            if prev2 > prev1:
+                print(toStr, prev1, " : ", prev2 )
+                print(toStr, 'Watch stop', aware)
+                time.sleep(300)
+            elif prev2 > prev1:
+                print(toStr, prev1, " : ", prev2 )
+                print(toStr, 'Watch stop', aware)
+                time.sleep(300)
+            elif prev2 > prev1:
+                print(toStr, prev1, " : ", prev2 )
+                print(toStr, 'Watch stop', aware)
+            else:
+                print(toStr, 'Proceed to buy with robinhood', aware)
+                main.BUY(toStr, 1)
         
        
 if __name__ == "__main__":
     login(days=1)    
-    
+    watchTime()
+    checkPriceAction()
               
-while open_market():
-     watchlist()
+# while open_market():
+     
      
     # logout()
 #Next buy with robinhood but first put the stocks in tick in your robinhood account you need to own them               
