@@ -58,11 +58,14 @@ def watchTime():
     print(pastTime)
     print(pastTime2)
         
- 
+
  ######################################################################
+ 
+ 
  
 #  Check price overtime       
 def checkPriceAction():
+        global toStr
         for x in ticks:
             toStr = str(x)
             syb = yf.Ticker(toStr)
@@ -72,26 +75,20 @@ def checkPriceAction():
             dataPrev = data2['Open'].reset_index(drop=True)
             prev1 = data1.tail().iloc[2]
             prev2 = dataPrev.tail().iloc[2]
-            if prev2 > prev1:
-                print(toStr, prev1, " : ", prev2 )
-                print(toStr, 'Watch stop', aware)
-                time.sleep(300)
-            elif prev2 > prev1:
-                print(toStr, prev1, " : ", prev2 )
-                print(toStr, 'Watch stop', aware)
-                time.sleep(300)
-            elif prev2 > prev1:
+            if prev2 > prev1:     #make the if statement run 3 times in 5 minutes and then buy 
                 print(toStr, prev1, " : ", prev2 )
                 print(toStr, 'Watch stop', aware)
             else:
                 print(toStr, 'Proceed to buy with robinhood', aware)
-                main.BUY(toStr, 1)
-        
-       
+               
+                
+                
+                
 if __name__ == "__main__":
     login(days=1)    
     watchTime()
-    checkPriceAction()
+    checkPriceAction() * time.sleep(300) * 3
+    main.BUY(toStr, 1)
               
 # while open_market():
      
