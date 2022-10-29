@@ -133,7 +133,8 @@ if __name__ == "__main__":
     stocks = get_stocks()
     listStock = print('stocks:', stocks)
     tops = get_tag()
-    print(tops)
+    symbols = rh.markets.get_top_movers()
+    base = symbols['symbol']
 
     ts = stragety.trader(stocks)
 

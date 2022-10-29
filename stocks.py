@@ -53,7 +53,7 @@ def watchTime():
     print(type(timezone))
     aware = dt.datetime.now(timezone).time()
     print(aware)
-    pastTime = dt.datetime.now(timezone)# time of 5minutes ago
+    pastTime = dt.datetime(2022, 10, 28, 14, 23)# time of 5minutes ago
     pastTime2 = pastTime - dt.timedelta(minutes=5)
     print(pastTime)
     print(pastTime2)
@@ -73,26 +73,31 @@ def checkPriceAction():
             data2 = pd.DataFrame(syb.history(interval="1m",period='1d', end=pastTime, start=pastTime2))
             data1 = data['Open'].reset_index(drop=True)
             dataPrev = data2['Open'].reset_index(drop=True)
-            prev1 = data1.tail().iloc[2]
-            prev2 = dataPrev.tail().iloc[2]
-            if prev2 > prev1:     #make the if statement run 3 times in 5 minutes and then buy 
-                print(toStr, prev1, " : ", prev2 )
-                print(toStr, 'Watch stop', aware)
-            else:
-                print(toStr, 'Proceed to buy with robinhood', aware)
-               
-                
-                
+            prev1 = data1.tail()
+            prev2 = dataPrev.tail()
+
+
+
+# Trying to see if reset index could still select prices without index involved
+            
+            
+def compare():
+    print(checkPriceAction.prev1)  
+    print(checkPriceAction.prev2)
+    
+         
+    
+      
                 
 if __name__ == "__main__":
     login(days=1)    
-    watchTime()
-    checkPriceAction() * time.sleep(300) * 3
-    main.BUY(toStr, 1)
+ 
               
-# while open_market():
+while open_market():
+    watchTime()
+    compare()
+    main.BUY(toStr, 1)
      
-     
-    # logout()
+    logout()
 #Next buy with robinhood but first put the stocks in tick in your robinhood account you need to own them               
 
