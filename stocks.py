@@ -53,7 +53,7 @@ def watchTime():
     print(type(timezone))
     aware = dt.datetime.now(timezone).time()
     print(aware)
-    pastTime = dt.datetime(2022, 10, 28, 14, 23)# time of 5minutes ago
+    pastTime = dt.datetime.now(timezone)# time of 5minutes ago
     pastTime2 = pastTime - dt.timedelta(minutes=5)
     print(pastTime)
     print(pastTime2)
@@ -75,29 +75,36 @@ def checkPriceAction():
             dataPrev = data2['Open'].reset_index(drop=True)
             prev1 = data1.tail()
             prev2 = dataPrev.tail()
-
-
-
-# Trying to see if reset index could still select prices without index involved
+            print(toStr, prev1, prev2)
+            if prev2 == ([]):
+                print('Data not available')
+            elif prev2 < prev1:
+                print(toStr, 'watch', aware)
+            elif prev2 < prev1:
+                print(toStr, 'watch', aware)
+            elif prev2 < prev1:
+                print(toStr, 'BUY', aware)
+                main.BUY(toStr, 1)
             
-            
-def compare():
-    print(checkPriceAction.prev1)  
-    print(checkPriceAction.prev2)
-    
-         
     
       
                 
 if __name__ == "__main__":
     login(days=1)    
- 
+   
+    
               
 while open_market():
     watchTime()
-    compare()
-    main.BUY(toStr, 1)
+    checkPriceAction()
+    
+    
+
+market_close = dt.time(3,00,0) 
+    
+if market_close:
+    main.SELL(toStr, 1)
      
-    logout()
+logout()
 #Next buy with robinhood but first put the stocks in tick in your robinhood account you need to own them               
 
