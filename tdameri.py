@@ -1,4 +1,3 @@
-from asyncore import close_all
 import robin_stocks.tda as td
 import config, stocks
 from datetime import timedelta
@@ -9,6 +8,7 @@ import schedule,time, pytz
 
 
 passcode = td.authentication.generate_encryption_passcode()
+print("My secret passcode is =>", passcode)
 
 
 def logging_first(passcode,client_id, authToken, reToken):
@@ -65,14 +65,10 @@ def get_PriceAction():
 
 
 
-def SELL_ALL():
-    if close_all:
-        # sell all stocks traded during market hour
+# def SELL_ALL():
+#     if close_all:
+#         # sell all stocks traded during market hour
         
-    
-    
-
-while open_market():
     
     
     

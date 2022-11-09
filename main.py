@@ -1,33 +1,15 @@
-
-from sqlite3 import Timestamp
-import robin_stocks.tda as td
-import config, tdameri
-import sys
-import pandas as pd
-
-# ''' 
-#  pip install pandas
-#  pip install datetime
-#  pip install matplotlib.pyplot
-#  pip install robin_stocks 
- 
-#  Write the above lines of code one at a time in your integrated terminal on replit
- 
-#  '''
-
-
-# # This session handles the login 
+from tda import auth, client
+import json
 
 
 
-
-
-def login():
-    td.authentication.login(tdameri.passcode)
-    
-    td.authentication.set_login_state
-
-
-
-def BUY():
-     td.orders.place_order()
+token_path = '/path/to/token.json'
+api_key = 'PJNXBXPGWJM9RV4JCQVHLKZBKZO0FBWV@AMER.OAUTHAP'
+redirect_uri = 'https://127.0.0.1:8080'
+try:
+    c = auth.client_from_token_file(token_path, api_key)
+except FileNotFoundError:
+    from selenium import webdriver
+    with webdriver.Chrome() as driver:
+        c = auth.client_from_login_flow(
+            driver, api_key, redirect_uri, token_path)
